@@ -1,57 +1,82 @@
+# Нужно добавить кнопку назад во все murkup
 import logging
+from time import sleep
 from telegram.ext import Updater, MessageHandler, Filters
 from telegram.ext import CallbackContext, CommandHandler
-import db_mod
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
+from constants import *
+from theory_func import *
+from games_func import *
 
-WORDS_DB = db_mod.WordsDb()
-TOKEN = "1761635851:AAFkWG9yyhCoKtwpjuEwKth8Fp6QC_sQsvY"
-REQUEST_KWARGS = {
-    'proxy_url': 'socks5://t3.learn.python.ru:443',    # t3 можно менять на t1 или t2
-    'urllib3_proxy_kwargs': {
-        'assert_hostname': 'False',
-        'cert_reqs': 'CERT_NONE',
-        'username': 'learn',
-        'password': 'python'
-    }
-}
+
 logging.captureWarnings(True)
 
 
 def start(update, context):
+    start_keyboard = [['/Theory', '/Games']]
+    start_markup = ReplyKeyboardMarkup(start_keyboard, one_time_keyboard=False, resize_keyboard=True)
+    if update.message.text == "/start":
+        update.message.reply_text("Hey! I am a bot for learning English.\nСhoose a way to study.",
+                              reply_markup=start_markup)
+    elif update.message.text == "/menu":
+        update.message.reply_text("Сhoose a way to study.",
+                                  reply_markup=start_markup)
+
+
+def close_keyboard(update, context):
     update.message.reply_text(
-        "Привет! Я эхо-бот. Напишите мне что-нибудь, и я пришлю это назад!")
+        "What would you like to do next?\nTo reopen the menu, enter /menu",
+        reply_markup=ReplyKeyboardRemove()
+    )
 
 
-def help(update, context):
-    update.message.reply_text(
-        "Я пока не умею помогать... Я только ваше эхо.")
+def helper(update, context):
+    # Добавить описание всех кнопок в помощник
+    update.message.reply_text("Sorry, but I can't help you right now.")
+    pass
 
 
-def random_word_game(update, context):
-    run = True
-    while run:
-        word, translations = WORDS_DB.random_word("english_words")
-        update.message.reply_text(word)
-        if update.message.text.lower() == "/stop":
-            run = False
-        else:
-            if update.message.text.lower() in translations.split(", "):
-                update.message.reply_text("Верно")
-            else:
-                update.message.reply_text("Неверно")
-            update.message.reply_text(word)
+def theory(update, context):
+    theory_keyboard = [['/Correct_translation', '/Random_word'],
+                       ['/Times_of_English']]
+    theory_markup = ReplyKeyboardMarkup(theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text("The nice choice!", reply_markup=theory_markup)
+
+
+def games(update, context):
+    games_keyboard = [['/Make_up_a_word'],
+                       ['/Random_tongue_twister']]
+    games_markup = ReplyKeyboardMarkup(games_keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text("Good luck!", reply_markup=games_markup)
 
 
 def main():
     updater = Updater(TOKEN, use_context=True,
                       request_kwargs=REQUEST_KWARGS)
-
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
+    text_handler_start = CommandHandler(["start", "menu"], start)
+    text_handler_close = CommandHandler("close", close_keyboard)
+    text_handler_help = CommandHandler("help", helper)
+    text_handler_theory = CommandHandler("Theory", theory)
+    text_handler_games = CommandHandler("Games", games)
+    text_handler_correct_translation = CommandHandler("Correct_translation", correct_translation)
+    text_handler_random_word = CommandHandler("Random_word", random_word)
+    text_handler_times_of_english = CommandHandler("Times_of_English", times_of_english)
+    text_handler_make_up_a_word = CommandHandler("Make_up_a_word", make_up_a_word)
+    text_handler_random_tongue_twister = CommandHandler("Random_tongue_twister", random_tongue_twister)
 
-    dp.add_handler(CommandHandler("random_word", random_word_game))
+    dp.add_handler(text_handler_start)
+    dp.add_handler(text_handler_close)
+    dp.add_handler(text_handler_help)
+    dp.add_handler(text_handler_theory)
+    dp.add_handler(text_handler_games)
+    dp.add_handler(text_handler_correct_translation)
+    dp.add_handler(text_handler_random_word)
+    dp.add_handler(text_handler_times_of_english)
+    dp.add_handler(text_handler_make_up_a_word)
+    dp.add_handler(text_handler_random_tongue_twister)
+
     updater.start_polling()
 
     # Ждём завершения приложения.
