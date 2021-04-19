@@ -1,6 +1,4 @@
-# Нужно добавить кнопку назад во все murkup
 import logging
-from time import sleep
 from telegram.ext import Updater, MessageHandler, Filters
 from telegram.ext import CallbackContext, CommandHandler
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
@@ -40,7 +38,7 @@ def theory(update, context):
     theory_keyboard = [['/Correct_translation', '/Random_word'],
                        ['/Times_of_English']]
     theory_markup = ReplyKeyboardMarkup(theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
-    update.message.reply_text("The nice choice!", reply_markup=theory_markup)
+    update.message.reply_text("Nice choice!", reply_markup=theory_markup)
 
 
 def games(update, context):
