@@ -59,7 +59,7 @@ def main():
     text_handler_theory = CommandHandler("Theory", theory)
     text_handler_games = CommandHandler("Games", games)
     text_handler_correct_translation = CommandHandler("Correct_translation", correct_translation)
-    text_handler_random_word = CommandHandler("Random_word", random_word)
+    text_handler_random_word = CommandHandler("Random_word", reserve_random_word)
     text_handler_times_of_english = CommandHandler("Times_of_English", times_of_english)
     text_handler_make_up_a_word = CommandHandler("Make_up_a_word", make_up_a_word)
     text_handler_random_tongue_twister = CommandHandler("Random_tongue_twister", random_tongue_twister)
