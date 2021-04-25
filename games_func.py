@@ -1,26 +1,22 @@
+from telegram import ReplyKeyboardMarkup
+
 from db_mod import *
+import sqlite3
+import random
 
 
 def make_up_a_word(update, context):
-    # берём рандомное слово с переводом
-    words_db = WordsDb()
-    word, translation = words_db.random_word()
-
-    # перемешиваем слово
-    shuffle_word = list(word)
-    while "".join(shuffle_word) == word:
-        random.shuffle(shuffle_word)
-
-    update.message.reply_text(translation)
-    update.message.reply_text("".join(shuffle_word))
-
-    # сравниваем ответ с правельным словом и соответствующе реагируем
-    if update.message.text == word:
-        update.message.reply_text("Верно")
-    else:
-        update.message.reply_text("Неверно")
-        update.message.reply_text("Правельный ответ: " + word)
+    pass
 
 
 def random_tongue_twister(update, context):
-    update.message.reply_text("test5")
+    con = sqlite3.connect("words_db.sqlite")
+    cur = con.cursor()
+    n = random.randint(1, 76)
+    twist = cur.execute(f"""SELECT twisters FROM tongue_twisters WHERE id={n}""").fetchone()
+
+    games_keyboard = [['/Make_up_a_word'],
+                       ['/Random_tongue_twister'],
+                      ['/menu']]
+    games_markup = ReplyKeyboardMarkup(games_keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text(twist[0], reply_markup=games_markup)

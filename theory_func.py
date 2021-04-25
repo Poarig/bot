@@ -19,7 +19,7 @@ def correct_translation(update, context):
         n = random.randint(0, len(words) - 1)
         choose_keyboard[1].append(words[n])
         del words[n]
-    print(choose_keyboard)
+
     choose_markup = ReplyKeyboardMarkup(choose_keyboard, one_time_keyboard=True, resize_keyboard=True)
 
     update.message.reply_text(f"Choose the correct translation of the word \"{correct_word[0]}\"\nYou have 10 seconds",
@@ -27,7 +27,7 @@ def correct_translation(update, context):
 
     sleep(10)
     theory_keyboard = [['/Correct_translation', '/Random_word'],
-                       ['/Times_of_English']]
+                       ['/Times_of_English', '/menu']]
     theory_markup = ReplyKeyboardMarkup(theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text(f"I hope you did it.\nCorrect answer is \"{correct_word[1]}\"",
                               reply_markup=theory_markup)
