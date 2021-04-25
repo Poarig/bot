@@ -10,5 +10,7 @@ data = [i.strip() for i in f.readlines()]
 
 for i in range(len(data)):
     t = ts.google(data[i], from_language="en", to_language='ru')
-    res = cur.execute(f"""INSERT INTO english_words(id, "word", "translations") VALUES ({i+1}, "{data[i]}", "{t}")""")
+    res = cur.execute(
+        f"""INSERT INTO english_words(id, "word", "translations") VALUES (
+            {i+1}, "{data[i]}", "{t}")""")
     con.commit()

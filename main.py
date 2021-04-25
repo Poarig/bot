@@ -12,10 +12,12 @@ logging.captureWarnings(True)
 
 def start(update, context):
     start_keyboard = [['/Theory', '/Games']]
-    start_markup = ReplyKeyboardMarkup(start_keyboard, one_time_keyboard=False, resize_keyboard=True)
+    start_markup = ReplyKeyboardMarkup(
+        start_keyboard, one_time_keyboard=False, resize_keyboard=True)
     if update.message.text == "/start":
-        update.message.reply_text("Hey! I am a bot for learning English.\nСhoose a way to study.",
-                                  reply_markup=start_markup)
+        update.message.reply_text(
+            "Hey! I am a bot for learning English.\nСhoose a way to study.",
+            reply_markup=start_markup)
     elif update.message.text == "/menu":
         update.message.reply_text("Сhoose a way to study.",
                                   reply_markup=start_markup)
@@ -38,7 +40,8 @@ def theory(update, context):
     theory_keyboard = [['/Correct_translation', '/Random_word'],
                        ['/Times_of_English'],
                        ['/Games']]
-    theory_markup = ReplyKeyboardMarkup(theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
+    theory_markup = ReplyKeyboardMarkup(
+        theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text("Nice choice!", reply_markup=theory_markup)
 
 
@@ -46,7 +49,8 @@ def games(update, context):
     games_keyboard = [['/Make_up_a_word'],
                       ['/Random_tongue_twister'],
                       ['/Theory']]
-    games_markup = ReplyKeyboardMarkup(games_keyboard, one_time_keyboard=True, resize_keyboard=True)
+    games_markup = ReplyKeyboardMarkup(
+        games_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text("Good luck!", reply_markup=games_markup)
 
 
@@ -60,11 +64,16 @@ def main():
     text_handler_help = CommandHandler("help", helper)
     text_handler_theory = CommandHandler("Theory", theory)
     text_handler_games = CommandHandler("Games", games)
-    text_handler_correct_translation = CommandHandler("Correct_translation", correct_translation)
-    text_handler_random_word = CommandHandler("Random_word", reserve_random_word)
-    text_handler_times_of_english = CommandHandler("Times_of_English", times_of_english)
-    text_handler_make_up_a_word = CommandHandler("Make_up_a_word", make_up_a_word)
-    text_handler_random_tongue_twister = CommandHandler("Random_tongue_twister", random_tongue_twister)
+    text_handler_correct_translation = CommandHandler(
+        "Correct_translation", correct_translation)
+    text_handler_random_word = CommandHandler(
+        "Random_word", reserve_random_word)
+    text_handler_times_of_english = CommandHandler(
+        "Times_of_English", times_of_english)
+    text_handler_make_up_a_word = CommandHandler(
+        "Make_up_a_word", make_up_a_word)
+    text_handler_random_tongue_twister = CommandHandler(
+        "Random_tongue_twister", random_tongue_twister)
 
     dp.add_handler(text_handler_start)
     dp.add_handler(text_handler_close)
