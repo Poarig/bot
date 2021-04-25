@@ -76,7 +76,6 @@ def main():
     dp.add_handler(text_handler_random_tongue_twister)
 
     updater.start_polling()
-
     # Ждём завершения приложения.
     # (например, получения сигнала SIG_TERM при нажатии клавиш Ctrl+C)
     updater.idle()
