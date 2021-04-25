@@ -15,7 +15,7 @@ def start(update, context):
     start_markup = ReplyKeyboardMarkup(start_keyboard, one_time_keyboard=False, resize_keyboard=True)
     if update.message.text == "/start":
         update.message.reply_text("Hey! I am a bot for learning English.\nСhoose a way to study.",
-                              reply_markup=start_markup)
+                                  reply_markup=start_markup)
     elif update.message.text == "/menu":
         update.message.reply_text("Сhoose a way to study.",
                                   reply_markup=start_markup)
@@ -36,14 +36,16 @@ def helper(update, context):
 
 def theory(update, context):
     theory_keyboard = [['/Correct_translation', '/Random_word'],
-                       ['/Times_of_English']]
+                       ['/Times_of_English'],
+                       ['/Games']]
     theory_markup = ReplyKeyboardMarkup(theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text("Nice choice!", reply_markup=theory_markup)
 
 
 def games(update, context):
     games_keyboard = [['/Make_up_a_word'],
-                       ['/Random_tongue_twister']]
+                      ['/Random_tongue_twister'],
+                      ['/Theory']]
     games_markup = ReplyKeyboardMarkup(games_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text("Good luck!", reply_markup=games_markup)
 

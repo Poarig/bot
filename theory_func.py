@@ -27,7 +27,8 @@ def correct_translation(update, context):
 
     sleep(10)
     theory_keyboard = [['/Correct_translation', '/Random_word'],
-                       ['/Times_of_English']]
+                       ['/Times_of_English'],
+                       ['/Games']]
     theory_markup = ReplyKeyboardMarkup(theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text(f"I hope you did it.\nCorrect answer is \"{correct_word[1]}\"",
                               reply_markup=theory_markup)
@@ -36,8 +37,16 @@ def correct_translation(update, context):
 def reserve_random_word(update, context):
     # берём рандомное слово с переводом и выводим их через "-"
     words_db = WordsDb()
-    update.message.reply_text(" - ".join(words_db.random_word()))
+    theory_keyboard = [['/Correct_translation', '/Random_word'],
+                       ['/Times_of_English'],
+                       ['/Games']]
+    theory_markup = ReplyKeyboardMarkup(theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text(" - ".join(words_db.random_word()), reply_markup=theory_markup)
 
 
 def times_of_english(update, context):
-    update.message.reply_text("test3")
+    theory_keyboard = [['/Correct_translation', '/Random_word'],
+                       ['/Times_of_English'],
+                       ['/Games']]
+    theory_markup = ReplyKeyboardMarkup(theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text("This feature is not available yet. Try again later.", reply_markup=theory_markup)
