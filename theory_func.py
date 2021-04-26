@@ -24,7 +24,7 @@ def correct_translation(update, context):
         choose_keyboard, one_time_keyboard=True, resize_keyboard=True)
 
     update.message.reply_text(
-        f"Choose the correct translation of the word \"{correct_word[0]}\"",
+        f"Choose the correct translation of the word \"{correct_word[0]}\"" +
         "\nYou have 10 seconds",
         reply_markup=choose_markup)
 
