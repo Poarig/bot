@@ -19,7 +19,7 @@ def correct_translation(update, context):
         n = random.randint(0, len(words) - 1)
         choose_keyboard[1].append(words[n])
         del words[n]
-    print(choose_keyboard)
+
     choose_markup = ReplyKeyboardMarkup(
         choose_keyboard, one_time_keyboard=True, resize_keyboard=True)
 
@@ -30,8 +30,7 @@ def correct_translation(update, context):
 
     sleep(10)
     theory_keyboard = [['/Correct_translation', '/Random_word'],
-                       ['/Times_of_English'],
-                       ['/Games']]
+                       ['/Times_of_English', '/menu']]
     theory_markup = ReplyKeyboardMarkup(
         theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text(
@@ -44,7 +43,7 @@ def reserve_random_word(update, context):
     words_db = WordsDb()
     theory_keyboard = [['/Correct_translation', '/Random_word'],
                        ['/Times_of_English'],
-                       ['/Games']]
+                       ['/menu']]
     theory_markup = ReplyKeyboardMarkup(
         theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text(
@@ -54,7 +53,7 @@ def reserve_random_word(update, context):
 def times_of_english(update, context):
     theory_keyboard = [['/Correct_translation', '/Random_word'],
                        ['/Times_of_English'],
-                       ['/Games']]
+                       ['/menu']]
     theory_markup = ReplyKeyboardMarkup(
         theory_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text(
